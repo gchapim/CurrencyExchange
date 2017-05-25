@@ -21,4 +21,9 @@ class Exchanger
   def get_quote(currency_code)
     @quotes[currency_code] if currency_code_valid? currency_code
   end
+
+  def update
+    updater = Updater.new
+    updater.update(@quotes)
+  end
 end
