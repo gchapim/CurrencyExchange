@@ -23,6 +23,10 @@ class Exchanger
   # +currency_code+ symbol containing the currency code :AUD, :BRL, :USD
   def get_quote(currency_code)
     updater.update(quotes)
-    quotes[currency_code] if currency_code_valid? currency_code
+
+    if currency_code_valid?(currency_code)
+      currency_code = currency_code.to_sym
+      quotes[currency_code]
+    end
   end
 end
