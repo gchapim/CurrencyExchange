@@ -6,7 +6,7 @@ RSpec.describe HomeController, type: :controller do
     context "when api data isn't available" do
 
       before do
-        allow_any_instance_of(Exchanger).to receive(:get_quote).and_return(nil)
+        allow_any_instance_of(QuotesApiWrapper).to receive(:get_rates).and_return(nil)
       end
 
       it 'responds with success code' do
@@ -16,6 +16,7 @@ RSpec.describe HomeController, type: :controller do
       end
 
       it 'responds with an error message' do
+        get :index
         expect(assigns(:messages)).to have_key(:errors)
       end
 
@@ -27,12 +28,15 @@ RSpec.describe HomeController, type: :controller do
 
     context 'when it gets api data' do
       before do
-        allow_any_instance_of(Exchanger).to receive(:get_quote)
+        allow_any_instance_of(Exchanger).to receive(:get_quotes)
           .and_return({ AUD: { '2017-05-24': 3.4 }})
       end
 
       it 'populates and loads hash with quotes' do
-        expect(assigns(:quotes)).to include({ AUD: { '2017-05-24': 3.4 }})
+        get :index
+
+        expect(assigns(:quotes)).to have_key(:AUD)
+        expect(assigns(:quotes)[:AUD]).to include({ '2017-05-24': 3.4 })
       end
 
       it 'responds with success code' do

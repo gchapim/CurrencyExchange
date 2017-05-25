@@ -9,7 +9,7 @@ class QuoteUpdater
   def update(quotes)
     quotes.each_key do |key|
       hash_days = get_currency_data key
-      skip if hash_days.blank?
+      next if hash_days.blank?
 
       # Cleans the hash up
       quotes[key] = {}
