@@ -5,6 +5,13 @@ require 'json'
 #
 # Author:: gchapim
 class QuoteUpdater
+
+  attr_accessor :dates
+
+  def initialize
+    @dates = []
+  end
+
   # Update local rates based on web resource
   def update(quotes)
     quotes.each_key do |key|
@@ -15,8 +22,7 @@ class QuoteUpdater
       quotes[key] = {}
       hash_days.each_key do |day|
         # The first value of hash for the day is the actual rate
-        quotes[key][(Date.today - (8 - day.to_i))
-                    .strftime('%Y-%m-%d')] = hash_days[day].first
+        quotes[key][@dates[day.to_i]] = hash_days[day].first
       end
     end
   end
@@ -27,8 +33,19 @@ class QuoteUpdater
     currency_data = api_wrapper.get_rates(key)
     unless currency_data.blank? || currency_data['dataSets'].blank?
       # This is the format based on web services template
+      fill_dates(currency_data)
       currency_data['dataSets']
         .first['series']['0:0:0:0:0']['observations']
+    end
+  end
+
+  private
+
+  def fill_dates(currency_data)
+    @dates = []
+    currency_data['structure']['dimensions']['observation']
+        .first['values'].each do |value|
+          @dates << value['id']
     end
   end
 end

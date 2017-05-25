@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <mname="viewport" content="initial-scale=1.0, usescalable=no" />
+      <title>@gchapim's Currency Chart</title>
+
+      <script src="http://code.highcharts.com/highcharts.js"></script>
+    </head>
+
+    <body>
+
+    <% @messages.each do |type, message| %>
+      <span><%= type + ' - ' + message %></span><br/>
+    <% end if @messages.present? %>
+      <div id="container" style="width:100%; height:400px;"></div>
+      <%= console %>
+      <script>
+        $(function () {
+          var myChart = Highcharts.chart('container', {
+            title: {
+              text: 'BRL Exchange Rates'
+            },
+            xAxis: {
+              type: 'datetime',
+              dateTimeLabelFormats: {
+                day: '%Y-%m-%d'
+              },
+              categories: [<% @quotes.first[1].keys.each do |key| %> 
+                           <%= "'".concat(key).concat("',").html_safe %>
+                            <% end %>]
+
+            },
+            yAxis: {
+              title: {
+                text: 'BRL'
+              }
+            },
+            series: [
+              <% @quotes.each_with_index do |(currency, value), i| %>{
+                  <%= 'visible: false,' unless i==0 %>
+                  name: "<%= currency.to_s %>",
+                  data: [<% value.each_value do |value| %> <%=value%>, <%end%>]
+              },<%end%>]
+          });
+        });
+      </script>
+    </body>
+</html>
