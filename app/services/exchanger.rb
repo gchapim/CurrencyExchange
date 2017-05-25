@@ -21,12 +21,19 @@ class Exchanger
   # If called before update, it will return blank hashes
   #
   # +currency_code+ symbol containing the currency code :AUD, :BRL, :USD
-  def get_quote(currency_code)
-    updater.update(quotes)
+  # +update+ if the exchanger needs to update its values before returning quotes
+  def get_quote(currency_code, update=true)
+    updater.update(quotes) if update
 
     if currency_code_valid?(currency_code)
       currency_code = currency_code.to_sym
       quotes[currency_code]
+    end
+  end
+
+  def get_quotes(update=true)
+    quotes.each_key do |key|
+      quotes[key] = get_quote(key, update)
     end
   end
 end

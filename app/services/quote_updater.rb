@@ -11,6 +11,8 @@ class QuoteUpdater
       hash_days = get_currency_data key
       skip if hash_days.blank?
 
+      # Cleans the hash up
+      quotes[key] = {}
       hash_days.each_key do |day|
         # The first value of hash for the day is the actual rate
         quotes[key][(Date.today - (8 - day.to_i))
