@@ -15,6 +15,7 @@ class QuotesApiWrapper
 
   def url(currency_code)
     return nil unless currency_code_valid?(currency_code)
+    currency_code = currency_code.to_sym
     start_date = (Date.today - 8).strftime('%Y-%m-%d')
     end_date = Date.today.strftime('%Y-%m-%d')
     "https://sdw-wsrest.ecb.europa.eu/service/data/EXR/D.#{currency_code}.EUR.SP00.A?startPeriod=#{start_date}&endPeriod=#{end_date}" unless currency_code.blank?
