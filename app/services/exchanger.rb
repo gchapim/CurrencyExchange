@@ -11,7 +11,7 @@ class Exchanger
   def initialize
     # A hash which will have another hash containing for every date we have the rate
     @quotes = {}
-    CURRENCIES.each do |currency|
+    CURRENCIES.each_key do |currency|
       @quotes[currency] = {}
     end
     @updater = QuoteUpdater.new

@@ -22,10 +22,9 @@ RSpec.describe Exchanger do
     context 'given a valid currency' do
 
       it 'returns quotation when not a symbol' do
-        expect(subject.get_quote('BRL')).to be_present
+        expect(subject.get_quote('BRL')).to be_a(Hash)
       end
 
-      end
       it 'returns quotation' do
         expect(subject.get_quote(:AUD)).to be_present
         expect(subject.get_quote(:AUD)).to be_a(Hash)
