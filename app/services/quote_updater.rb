@@ -1,11 +1,10 @@
-require 'exchanger'
 require 'date'
 require 'json'
 
 # Class responsible for handling the data and filling quotes
 #
 # Author:: gchapim
-class Updater
+class QuoteUpdater
   # Update local rates based on web resource
   def update(quotes)
     quotes.each_key do |key|
@@ -22,7 +21,7 @@ class Updater
 
   def get_currency_data(key)
     return nil if key.blank?
-    api_wrapper = ApiWrapper.new
+    api_wrapper = QuotesApiWrapper.new
     currency_data = api_wrapper.get_rates(key)
     unless currency_data.blank? || currency_data['dataSets'].blank?
       # This is the format based on web services template

@@ -1,13 +1,12 @@
-require 'exchanger'
 require 'rails_helper'
 require 'webmock'
 require 'webmock/rspec'
 require 'vcr'
 require_relative '../support/vcr_setup'
 
-RSpec.describe Updater do
+RSpec.describe QuoteUpdater do
   subject do
-    Updater.new
+    QuoteUpdater.new
   end
 
   let!(:today) { Date.today }

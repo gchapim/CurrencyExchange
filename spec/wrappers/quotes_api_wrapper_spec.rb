@@ -1,14 +1,13 @@
-require 'exchanger'
 require 'rails_helper'
 require 'webmock'
 require 'webmock/rspec'
 require_relative '../support/vcr_setup'
 
-RSpec.describe ApiWrapper do
+RSpec.describe QuotesApiWrapper do
   subject do
-    ApiWrapper.new
+    QuotesApiWrapper.new
   end
- 
+
   let!(:today) { Date.today }
 
   before do
@@ -33,20 +32,6 @@ RSpec.describe ApiWrapper do
     end
   end
 
-#    describe '#json_from_response' do
-#    context 'given an invalid response' do
-#      let(:response) { double('response') }
-#
-#      it 'returns nil if response is blank' do
-#        expect(subject.send(:json_from_response, nil)).to be_nil
-#      end
-
-#      it 'returns nil if body is blank' do
-#        allow(response).to receive(:body)
-#        expect(subject.send(:json_from_response, response)).to be_nil
-#      end
-#    end
-#  end
 
   describe '#get_rates' do
     context 'given an invalid currency_code' do

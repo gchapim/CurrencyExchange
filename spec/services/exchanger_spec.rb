@@ -1,4 +1,3 @@
-require 'exchanger'
 require 'rails_helper'
 
 RSpec.describe Exchanger do
@@ -16,21 +15,15 @@ RSpec.describe Exchanger do
         expect(subject.get_quote(nil)).to be_nil
       end
 
-      it 'returns nil when not a symbol' do
-        expect(subject.get_quote('BRL')).to be_nil
-      end
-
       it 'returns nil when not a valid currency' do
         expect(subject.get_quote(:CAD)).to be_nil
       end
     end
     context 'given a valid currency' do
       it 'returns quotation' do
-        expect(subject.get_quote(:AUD)).to be_empty
+        expect(subject.get_quote(:AUD)).to be_present
         expect(subject.get_quote(:AUD)).to be_a(Hash)
-        expect(subject.get_quote(:BRL)).to be_empty
         expect(subject.get_quote(:BRL)).to be_a(Hash)
-        expect(subject.get_quote(:USD)).to be_empty
         expect(subject.get_quote(:USD)).to be_a(Hash)
       end
     end
