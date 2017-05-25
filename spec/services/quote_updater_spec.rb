@@ -36,7 +36,7 @@ RSpec.describe QuoteUpdater do
         VCR.use_cassette('brl_quote') do
           currency_data = subject.get_currency_data(:BRL)
           expect(currency_data).to be_a(Hash)
-          expect(currency_data).to_not be_empty
+          expect(currency_data).to be_present
         end
       end
     end
