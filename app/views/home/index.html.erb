@@ -37,7 +37,7 @@
             series: [
               <% @quotes.each_with_index do |(currency, value), i| %>{
                   <%= 'visible: false,' unless i==0 %>
-                  name: "<%= currency.to_s %>",
+                  name: "<%= @currency_names[currency] %>",
                   data: [<% value.each do |date, rate| %> <%=if currency == :BRL then rate.round(2) else (@quotes[:BRL][date] / rate).round(2) end%>, <%end%>]
               },<%end%>]
           });
