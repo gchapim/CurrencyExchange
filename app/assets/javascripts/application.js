@@ -9,8 +9,40 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
-//
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+//
+//
+$(document).ready(function(){
+$("#button_AUD").on("click", function(){
+    for(i=0; i< myChart.series.length; i++){
+      if(myChart.series[i].name == 'AUD'){
+        myChart.series[i].show()
+      }else{
+        myChart.series[i].hide()
+      }
+    }
+});
+
+$("#button_BRL").on("click", function(){
+    for(i=0; i< myChart.series.length; i++){
+      if(myChart.series[i].name == 'EUR'){
+        myChart.series[i].show()
+      }else{
+        myChart.series[i].hide()
+      }
+    }
+});
+
+$("#button_USD").on("click", function(){
+    for(i=0; i< myChart.series.length; i++){
+      if(myChart.series[i].name == 'USD'){
+        myChart.series[i].show()
+      }else{
+        myChart.series[i].hide()
+      }
+    }
+});
+});

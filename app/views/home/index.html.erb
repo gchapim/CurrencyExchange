@@ -8,13 +8,23 @@
     </head>
 
     <body>
+    <h1>BRL Exchanger</h1>
 
+    <div>
+      <p>This is a chart showing currencies for Brazilian Real based on European Central Bank API.<br/>
+      The values are updated and shown for the last working days.<br/><br/>
+      Hope you enjoy</p>
+    </div>
     <% @messages.each do |type, message| %>
       <span><%= type + ' - ' + message %></span><br/>
     <% end if @messages.present? %>
       <div id="container" style="width:100%; height:400px;"></div>
+      <div style="width:100%;text-align:center;">
+        <% @quotes.each_key do |key| %>
+          <button id='button_<%= key.to_s %>'><%= @currency_names[key] %></button>
+        <%end%>
+      </div>
       <script>
-        $(function () {
           var myChart = Highcharts.chart('container', {
             title: {
               text: 'BRL Exchange Rates'
@@ -41,7 +51,6 @@
                   data: [<% value.each do |date, rate| %> <%=if currency == :BRL then rate.round(2) else (@quotes[:BRL][date] / rate).round(2) end%>, <%end%>]
               },<%end%>]
           });
-        });
       </script>
     </body>
 </html>
