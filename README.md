@@ -6,7 +6,7 @@ chart based on Brazilian Real rates.
 
 ## Installation
 
-You can fork and run it as a rails app.
+You can clone and run it as a rails app.
 
 ## Usage
 
